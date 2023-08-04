@@ -1,0 +1,30 @@
+.Product_container{
+    padding: 3rem;
+    margin: 3rem;
+    .Productlist{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .Product_ava{
+            margin-right: 2rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+    }
+    .edit{
+        padding: 5px 10px;
+        margin-right: 20px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        background-color: rgb(10, 128, 89);
+    }
+    .delete{
+        color: red;
+        font-size: 2.5rem;
+        cursor: pointer;
+    }
+}

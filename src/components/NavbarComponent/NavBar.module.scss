@@ -1,0 +1,48 @@
+.NavBar_container{
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    .NavBar_top{
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 3rem 3rem 3rem;
+        .NavBar_item{
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0.8;
+            &:hover{
+                opacity: 1;
+            }
+            svg{
+                font-size: 2rem;
+            }
+            p{
+                font-size: 1.7rem;
+                margin-top: 10px;
+            }
+        }
+    }
+    .NavBar_bottom{
+        display: flex;
+        flex-direction: column;
+        padding: 0 3rem 3rem 3rem;
+        .NavBar_item{
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0.8;
+            &:hover{
+                opacity: 1;
+            }
+            svg{
+                font-size: 2rem;
+            }
+            p{
+                font-size: 1.7rem;
+                margin-top: 10px;
+            }
+        }
+    }
+}

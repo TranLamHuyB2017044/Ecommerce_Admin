@@ -1,0 +1,117 @@
+.detail_container{
+    max-width: 100vw;
+    overflow: hidden;
+    .home{
+        display: grid;
+        grid-template-rows: 100vh;
+        grid-template-columns: 20vw 80vw;
+        border: 1px solid #ccc;
+        .body{
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: hsl(220, 100%, 98%);
+            .title_content{
+                padding: 1rem 3rem;
+                font-size: 3rem;
+            }
+            .content{
+                display: flex;
+                .over_view{
+                    box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                    -webkit-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                    -moz-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                    display: flex;
+                    padding: 2rem;
+                    flex-direction: column;
+                    gap: 1.5rem;
+                    align-items: center;
+                    flex: 1;
+                    margin: 3rem;
+                    height: max-content;
+                    img{
+                        width: 150px;
+                        height: 150px;
+                        border-radius: 50%;
+                    }
+                    .info{
+                        text-align: center;
+                        .fulname{
+                            font-weight: bold;
+                        }
+                        .job{
+                            font-weight: normal;
+                        }
+                    }
+                    .social{
+                        display: flex;
+                        justify-content: center;
+                        gap: 1.5rem;
+                        svg{
+                            cursor: pointer;
+                            color: #8094b7;
+                            opacity: 0.6;
+                            font-size: 2.5rem;
+                            &:hover{
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+                .edit_profile{
+                    flex: 3;
+                    box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                    -webkit-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                    -moz-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                    padding: 3rem;
+                    margin: 3rem;
+                    form{
+                        width: 100%;
+                        padding: 1rem;
+                        .formGroup{
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 2rem;
+                            label{
+                                font-size: 1.7rem;
+                                color: #8094b7;
+                                flex: 1;
+                            }
+                            input:not([type="file"]){
+                                flex: 3;
+                                height: 40px;
+                                font-size: 15px;
+                                border-radius: 5px;
+                                border: 0.5px solid rgba(128, 148, 183, 0.7);
+                                &:focus{
+                                    outline:  rgb(37, 88, 175);
+
+                                }
+                            }
+                        }
+                        .save{
+                            display: flex;
+                            margin: 2rem auto 0 auto;
+                            background-color: rgb(63, 164, 228);
+                            color: white;
+                            padding: 5px 10px;
+                            font-size: 18px;
+                            border-radius: 0.4em;
+                            border: 0.5px solid #8094b7;
+                            box-shadow: 0.1em 0.1em;
+                            &:hover{
+                                transform: translate(-0.05em, -0.05em);
+                                box-shadow: 0.15em 0.15em;
+                            }
+                            &:active{
+                                transform: translate(0.05em, 0.05em);
+                                box-shadow: 0.05em 0.05em;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
