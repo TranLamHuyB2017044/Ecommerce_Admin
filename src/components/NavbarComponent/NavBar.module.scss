@@ -4,28 +4,38 @@
     .NavBar_top{
         display: flex;
         flex-direction: column;
+        gap: 1.5rem;
         padding: 1rem 3rem 3rem 3rem;
         .NavBar_item{
             display: flex;
             gap: 1rem;
             align-items: center;
             cursor: pointer;
+            color: black;
+            margin-top: 1rem;
             opacity: 0.8;
+            .item_title{
+                text-decoration: none;
+                font-size: 1.7rem;
+                color: black;
+            }
+            
             &:hover{
                 opacity: 1;
             }
             svg{
                 font-size: 2rem;
             }
-            p{
-                font-size: 1.7rem;
-                margin-top: 10px;
-            }
+        }
+        .active{
+            color: #0d6efd;
+
         }
     }
     .NavBar_bottom{
         display: flex;
         flex-direction: column;
+        gap: 1.5rem;
         padding: 0 3rem 3rem 3rem;
         .NavBar_item{
             display: flex;
@@ -33,16 +43,20 @@
             align-items: center;
             cursor: pointer;
             opacity: 0.8;
+            margin-top: 1rem;
             &:hover{
                 opacity: 1;
+            }
+            .item_title{
+                text-decoration: none;
+                font-size: 1.7rem;
+                color: black;
             }
             svg{
                 font-size: 2rem;
             }
-            p{
-                font-size: 1.7rem;
-                margin-top: 10px;
-            }
+
+
         }
     }
 }

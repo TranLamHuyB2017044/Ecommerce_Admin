@@ -48,31 +48,33 @@ export default function DetailProduct() {
               </div>
               <div className={styles.product_info}>
                 <table>
-                  <tr>
-                    <th>
-                      <img
-                        src="https://hips.hearstapps.com/hmg-prod/images/apple-airpods-pro-amazon-sale-2023-1675781255.jpg?crop=0.668xw:1.00xh;0.0289xw,0&resize=1200:*"
-                        alt="apple"
-                      />
-                    </th>
-                    <th>Apple Airpods</th>
-                  </tr>
-                  <tr>
-                    <td>id: </td>
-                    <td>123</td>
-                  </tr>
-                  <tr>
-                    <td>sales: </td>
-                    <td>5123</td>
-                  </tr>
-                  <tr>
-                    <td>active: </td>
-                    <td>yes</td>
-                  </tr>
-                  <tr>
-                    <td>in stock: </td>
-                    <td>no</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>
+                        <img
+                          src="https://hips.hearstapps.com/hmg-prod/images/apple-airpods-pro-amazon-sale-2023-1675781255.jpg?crop=0.668xw:1.00xh;0.0289xw,0&resize=1200:*"
+                          alt="apple"
+                        />
+                      </th>
+                      <th>Apple Airpods</th>
+                    </tr>
+                    <tr>
+                      <td>id: </td>
+                      <td>123</td>
+                    </tr>
+                    <tr>
+                      <td>sales: </td>
+                      <td>5123</td>
+                    </tr>
+                    <tr>
+                      <td>active: </td>
+                      <td>yes</td>
+                    </tr>
+                    <tr>
+                      <td>in stock: </td>
+                      <td>no</td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>

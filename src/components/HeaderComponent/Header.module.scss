@@ -12,6 +12,7 @@
             font-size: 2.5rem;
             text-decoration: none;
             font-weight: bold;
+            color: #4154f1;
         }
         .search_header{
             display: flex;
@@ -50,10 +51,45 @@
                 font-size: 2.5rem;
             }
         }
-        img{
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
+        .header_img{
+            position: relative;
+            img{
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+            }
+            .subMenu{
+                z-index: 100;
+                .info{
+                    text-align: center;
+                    margin-bottom: 1rem;
+                    h2{
+                        font-size: 2.5rem;
+                    }
+                }
+                position: absolute;
+                width: 200px;
+                top: 5rem;
+                right: 10px;
+                padding: 0.5rem;
+                border-radius: 5px;
+                background-color: rgb(240, 249, 250);
+                box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                -webkit-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                -moz-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
+                ul{
+                    list-style: none;
+                    li{
+                        font-size: 1.6rem;
+                        border-top: 0.5px solid #ccc;
+                        padding: 1rem;
+                        &:hover{
+                            background-color: rgba(216, 221, 225, 0.8);
+
+                        }
+                    }
+                }
+            }
         }
 
     }

@@ -6,6 +6,7 @@ import Chart from "../../components/ChartComponent/Chart";
 import Footer from "../../components/FooterComponent/Footer";
 import UserInfo from "../../components/UserInfoComponent/UserInfo";
 function Home() {
+  
   return (
     <div className={styles.home_container}>
       <Header />
