@@ -1,58 +1,35 @@
+import { useEffect, useState } from "react";
 import styles from "./UserInfo.module.scss";
+import {  publicRequest } from "../../request";
 function UserInfo() {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const UserList = async () => {
+      const token = localStorage.getItem('access_token');
+      const respone = await publicRequest.get("/user/", { headers: {token: `Bearer ${token}`}});
+      setUser(respone.data);
+    };
+    UserList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [  ]);
   return (
     <div className={styles.userInfo_container}>
       <div className={styles.newUser_container}>
         <h2 className={styles.title}>New Join Members</h2>
-        <div className={styles.member}>
-          <img
-            src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
-            alt="userImg"
-          />
-          <div className={styles.detail_info}>
-            <p className={styles.fullName}>Huy Tran Lam</p>
-            <p>Web Developer</p>
-          </div>
-        </div>
-        <div className={styles.member}>
-          <img
-            src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
-            alt="userImg"
-          />
-          <div className={styles.detail_info}>
-            <p className={styles.fullName}>Leo Messi</p>
-            <p>Software Engineer</p>
-          </div>
-        </div>
-        <div className={styles.member}>
-          <img
-            src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
-            alt="userImg"
-          />
-          <div className={styles.detail_info}>
-            <p className={styles.fullName}>Cristiano Ronaldo</p>
-            <p>UI/UX Developer</p>
-          </div>
-        </div>
-        <div className={styles.member}>
-          <img
-            src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
-            alt="userImg"
-          />
-          <div className={styles.detail_info}>
-            <p className={styles.fullName}>Russ Linville</p>
-            <p>Manager</p>
-          </div>
-        </div>
-        <div className={styles.member}>
-          <img
-            src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
-            alt="userImg"
-          />
-          <div className={styles.detail_info}>
-            <p className={styles.fullName}>Alisha Davidson</p>
-            <p>Art Director</p>
-          </div>
+        <div className={styles.member_container}>
+          {user.map((user) => (
+            <div key={user._id} className={styles.member}>
+              <img
+                src={user.avatar }
+                alt={user.avatar }
+              />
+              <div className={styles.detail_info}>
+                <p className={styles.fullName}>{user.username} </p>
+                <p>{user.email}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <div className={styles.latest_trans}>
@@ -68,7 +45,7 @@ function UserInfo() {
             <tr>
               <td className={styles.user}>
                 <img
-                  src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
+                  src="https://mcdn.coolmate.me/image/June2023/tom-and-jerry-meme-cuc-hai-huoc-de-thuong-1447_451_(1).jpeg"
                   alt="userImg"
                 />
                 <p className={styles.name}>Davinci Carlson</p>
@@ -80,7 +57,7 @@ function UserInfo() {
             <tr>
               <td className={styles.user}>
                 <img
-                  src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
+                  src="https://mcdn.coolmate.me/image/June2023/tom-and-jerry-meme-cuc-hai-huoc-de-thuong-1447_451_(1).jpeg"
                   alt="userImg"
                 />
                 <p className={styles.name}>Davinci Carlson</p>
@@ -92,7 +69,7 @@ function UserInfo() {
             <tr>
               <td className={styles.user}>
                 <img
-                  src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
+                  src="https://mcdn.coolmate.me/image/June2023/tom-and-jerry-meme-cuc-hai-huoc-de-thuong-1447_451_(1).jpeg"
                   alt="userImg"
                 />
                 <p className={styles.name}>Davinci Carlson</p>
@@ -104,7 +81,7 @@ function UserInfo() {
             <tr>
               <td className={styles.user}>
                 <img
-                  src="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/279505617_3149760731906345_6845756444812484616_n.jpg?stp=dst-jpg_p320x320&_nc_cat=102&ccb=1-7&_nc_sid=7206a8&_nc_ohc=KcyqnAeeY_MAX-udYRu&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfDNkk9YtlGXJl-06nxBekQUSb3qdq8QOOs_093wFVtJCQ&oe=64E34BDD"
+                  src="https://mcdn.coolmate.me/image/June2023/tom-and-jerry-meme-cuc-hai-huoc-de-thuong-1447_451_(1).jpeg"
                   alt="userImg"
                 />
                 <p className={styles.name}>Davinci Carlson</p>

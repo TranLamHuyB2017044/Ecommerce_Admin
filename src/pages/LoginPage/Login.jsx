@@ -3,68 +3,71 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { publicRequest } from "../../request";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { SignIn } from "../../redux/userStore";
-import { useNavigate} from 'react-router-dom'
-import MyAlert from '../../components/AlertComponent/Alert'
-import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
+import MyAlert from "../../components/AlertComponent/Alert";
+
 function Login() {
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const redirect = useNavigate();
-  const schema = yup
-    .object({
-      username: yup.string().required("username is required"),
-      password: yup.string().required("password is required"),
-    })
-    .required();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  const { register, handleSubmit } = useForm();
+
   const onAdLogin = async () => {
+    setLoading(true);
     try {
       const user = await publicRequest.post("/auth/login", {
         username,
         password,
       });
-      dispatch(SignIn(user))
       if (user) {
-        MyAlert.Alert('success', 'Login successful')
-        redirect('/')
+        const isAdmin = user?.data.others.isAdmin;
+        if (isAdmin === true) {
+          window.localStorage.setItem("access_token", user?.data.accessToken);
+          MyAlert.Alert("success", "Login successful");
+          dispatch(SignIn(user));
+          setLoading(false);
+          redirect("/");
+        } else {
+          MyAlert.Alert("error", "You are not authorized");
+        }
       }
     } catch (error) {
-      console.log(error);
+      MyAlert.Alert("error", error.response?.data);
     }
   };
 
+  const onKeyAdLogin = (e) => {
+    if (e.key === "enter") {
+      onAdLogin();
+    }
+  };
   return (
     <div className={styles.login_container}>
-      <div className={styles.form_container}>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit(onAdLogin)}>
-          <p>Username</p>
-          <input
-            {...register("username")}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <p className={styles.errors}>{errors.username?.message}</p>
-          <p>Password</p>
-          <input
-            {...register("password")}
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <p className={styles.errors}>{errors.password?.message}</p>
-
-          <input type="submit" />
-        </form>
-      </div>
+      {loading ? (
+        <div className={styles.loading_spinner}></div>
+      ) : (
+        <div className={styles.form_container}>
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit(onAdLogin)}>
+            <p>Username</p>
+            <input
+              {...register("username")}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <p>Password</p>
+            <input
+              {...register("password")}
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input type="submit" onKeyDown={onKeyAdLogin} />
+          </form>
+        </div>
+      )}
     </div>
   );
 }

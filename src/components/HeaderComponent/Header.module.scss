@@ -79,13 +79,30 @@
                 -moz-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
                 ul{
                     list-style: none;
+
                     li{
                         font-size: 1.6rem;
                         border-top: 0.5px solid #ccc;
                         padding: 1rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
                         &:hover{
                             background-color: rgba(216, 221, 225, 0.8);
 
+                        }
+                        .my_profile{
+                            text-decoration: none;
+                            color: black;
+                            display: flex;
+                            align-items: center;
+                            gap: 1rem;
+                            svg{
+                                font-size: 2rem;
+                            }
+                        }
+                        svg{
+                            font-size: 2rem;
                         }
                     }
                 }

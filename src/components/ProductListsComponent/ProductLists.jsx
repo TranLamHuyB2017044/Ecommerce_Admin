@@ -1,83 +1,121 @@
 import styles from "./ProductLists.module.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import {rowProduct} from '../../data'
+// import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+// import {rowProduct} from '../../data'
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../../request";
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
+  {
+    field: "id",
+    headerName: "ID",
+    width: 250,
+    renderCell: (params) => {
+      return (
+        <div className={styles.Productlist}>
+          <p>{params.row._id}</p>
+        </div>
+      );
+    },
+  },
   {
     field: "Product",
     headerName: "Product",
-    width: 220,
-    renderCell:(params) => {
-        return (
-            <div className={styles.Productlist}>
-                <img className={styles.Product_ava} src={params.row.avatar} alt="" />
-                {params.row.productname}
-            </div>
-        )
-    }
+    width: 400,
+    renderCell: (params) => {
+      return (
+        <div className={styles.Productlist}>
+          <img
+            className={styles.Product_ava}
+            src={params.row.img[3].url_img}
+            alt=""
+          />
+          {params.row.title}
+        </div>
+      );
+    },
   },
   {
     field: "stock",
-    headerName: "Stock",
-    width: 250,
+    headerName: "InStock",
+    width: 120,
     editable: true,
-  },
-
-  {
-    field: "status",
-    headerName: "Status",
-    sortable: false,
-    width: 150,
+    renderCell: (params) => {
+      return (
+        <div className={styles.Productlist}>
+          <p>{params.row.inStock}</p>
+        </div>
+      );
+    },
   },
   {
     field: "price",
-    headerName: "Price",
+    headerName: "Price (USD)",
     sortable: true,
-    width: 150,
+    width: 120,
+    renderCell: (params) => {
+      return (
+        <div className={styles.Productlist}>
+          <p>{params.row.price}</p>
+        </div>
+      );
+    },
   },
   {
     field: "action",
     headerName: "Action",
     width: 150,
-    renderCell:(params) => {
-        return (
-            <>
-                <Link to={'/product/'+params.row.id}>
+    renderCell: (params) => {
+      return (
+        <>
+          <Link to={"/product/" + params.row._id}>
+            <button className={styles.edit}>Edit</button>
+          </Link>
 
-                    <button className={styles.edit}>Edit</button>
-                </Link>
-
-                <DeleteOutlinedIcon className={styles.delete}/>
-            </>
-        )
-    }
+        </>
+      );
+    },
   },
 ];
 
-
 function ProductLists() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const productList = async () => {
+      const rs = await publicRequest.get("/product/");
+      setProducts(rs.data);
+      setLoading(false);
+    };
+    productList();
+  }, []);
+
   return (
     <div className={styles.Product_container}>
-      <Box sx={{ height: "100%", width: "100%" }}>
-        <DataGrid
-          rows={rowProduct}
-          columns={columns}
-          style={{fontSize:'1.5rem'}}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 8,
+      {loading ? (
+        <div className={styles.loading_spinner}></div>
+      ) : (
+        <Box sx={{ height: "550px", width: "100%" }}>
+          <DataGrid
+            rows={products}
+            rowHeight={70}
+            getRowId={(row) => row._id}
+            columns={columns}
+            style={{ fontSize: "1.5rem" }}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 8,
+                },
               },
-            },
-          }}
-          pageSizeOptions={[8]}
-          checkboxSelection
-          disableRowSelectionOnClick
-        />
-      </Box>
+            }}
+            pageSizeOptions={[8]}
+            checkboxSelection
+            disableRowSelectionOnClick
+          />
+        </Box>
+      )}
     </div>
   );
 }

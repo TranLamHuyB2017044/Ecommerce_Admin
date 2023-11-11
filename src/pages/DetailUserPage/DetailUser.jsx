@@ -24,7 +24,7 @@ export default function DetailUser() {
               </div>
               <div className={styles.info}>
                 <h2 className={styles.fullname}>Kevin Anderson</h2>
-                <h3 className={styles.job}>Web Designer</h3>
+                <h2 className={styles.job}>Web Designer</h2>
               </div>
               <div className={styles.social}>
                 <TwitterIcon />

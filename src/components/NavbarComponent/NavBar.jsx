@@ -18,7 +18,7 @@ function NavBar() {
   return (
     <div className={styles.NavBar_container}>
       <section className={styles.NavBar_top}>
-        <div className={clsx(styles.NavBar_item, styles.active)}>
+        <div className={clsx(styles.NavBar_item)}>
           <WindowOutlinedIcon />
           <Link to="/" className={styles.item_title}>
             <p className={styles.active}>Dashboard</p>

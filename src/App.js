@@ -18,10 +18,9 @@ import { useSelector } from "react-redux";
 
 function App() {
   const user = useSelector((state) => state.currentUser);
-  console.log(user);
-
   const ProtectedRouteLogin = () => {
-    if (user) {
+    const isAdmin = user?.data.others.isAdmin
+    if (isAdmin) {
       return <Navigate to="/" replace />;
     }
     return <Outlet />;

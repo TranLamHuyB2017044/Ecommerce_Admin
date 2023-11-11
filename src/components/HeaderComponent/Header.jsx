@@ -9,21 +9,25 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import { Logout } from "../../redux/userStore";
 function Header() {
   const [showMenu, setShowMenu] = useState(false);
-  const username = useSelector(
-    (state) => state.currentUser.data.others.firstname
-  );
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const user = useSelector((state) => state.currentUser.data.others);
+  const username = user.username;
+  const useId = user._id;
+  const avatar = user.avatar;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleLogOut = () => {
     localStorage.removeItem("persist:root");
-    dispatch(Logout())
-    navigate('/login')
-  }
+    localStorage.removeItem("access_token");
+    dispatch(Logout());
+    navigate("/login");
+  };
   return (
     <div className={styles.header_container}>
       <div className={styles.header_left}>
@@ -48,7 +52,7 @@ function Header() {
         <div className={styles.header_img}>
           <img
             onClick={() => setShowMenu(!showMenu)}
-            src="https://i.pinimg.com/564x/98/90/25/98902569a74f39e4dc24636a652ba278.jpg"
+            src={avatar}
             alt="img-top"
           />
           {showMenu && (
@@ -59,13 +63,15 @@ function Header() {
               </div>
               <ul>
                 <li>
-                  <PersonOutlinedIcon /> My Profile
+                  <Link to={`/user/:${useId}`}  className={styles.my_profile}>
+                    <PersonOutlinedIcon /> My Profile
+                  </Link>
                 </li>
                 <li>
                   <HelpOutlineOutlinedIcon /> Need Help ?
                 </li>
 
-                <li onClick={handleLogOut} >
+                <li onClick={handleLogOut}>
                   <LogoutOutlinedIcon /> Logout
                 </li>
               </ul>

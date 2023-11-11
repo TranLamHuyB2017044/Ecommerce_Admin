@@ -1,21 +1,35 @@
 .user_container{
     padding: 3rem;
     margin: 3rem;
+    .loading_spinner {
+
+        margin: auto;
+        border: 4px solid rgba(0, 0, 0, 0.3);
+        border-top: 4px solid #007bff; /* Change the color as needed */
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    }
     .userlist{
         display: flex;
         justify-content: center;
         align-items: center;
         .user_ava{
             margin-right: 2rem;
-            width: 32px;
-            height: 32px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             object-fit: cover;
         }
 
     }
     .edit{
-        padding: 5px 10px;
+        padding: 10px 15px;
         margin-right: 20px;
         border: none;
         border-radius: 10px;
