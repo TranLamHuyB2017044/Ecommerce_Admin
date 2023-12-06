@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { publicRequest } from "../../request";
+
 import { useState } from "react";
 const columns = [
   {
@@ -92,13 +93,11 @@ const columns = [
 function UserLists() {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
+  const api = publicRequest();
 
   useEffect(() => {
     const UserList = async () => {
-      const token = localStorage.getItem("access_token");
-      const respone = await publicRequest.get("/user/", {
-        headers: { token: `Bearer ${token}` },
-      });
+      const respone = await api.get("/user/");
       setUser(respone.data);
       setLoading(false);
     };
@@ -110,8 +109,9 @@ function UserLists() {
       {loading ? (
         <div className={styles.loading_spinner}></div>
       ) : (
-        <Box sx={{ height: "400px", width: "100%" }}>
+        <Box sx={{ height: "400px", width: "100%" }} className={styles.Box}>
           <DataGrid
+            className={styles.dataGrid}
             rows={user}
             getRowId={(user) => user._id}
             columns={columns}

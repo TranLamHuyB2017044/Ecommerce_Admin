@@ -1,0 +1,148 @@
+@import '../../GlobalStyles/global.scss';
+
+.order_container{
+    overflow: hidden;
+    .home{
+        display: grid;
+        grid-template-rows: 100vh;
+        grid-template-columns: 20vw 80vw;
+        border: 1px solid #ccc;
+        @include responsive(phone){
+            display: block;
+        }
+        @include responsive(tablet){
+            display: block;
+        }
+        .body{
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: hsl(220, 100%, 98%);
+
+            .title_content{
+                padding: 1rem 3rem;
+                font-size: 2.6rem;
+                display: flex;
+                gap: 2rem;
+                margin: 3rem 0 2rem 0;
+            }
+            .items_sumary{
+                border: 0.5px solid #000;
+                border-radius: 10px;
+                padding: 2rem;
+                margin: auto auto 2rem auto;
+                width: 1024px;
+                @include responsive(tablet){
+                    width: 85%;
+                }
+                .head_title{
+                    display: grid;
+                    grid-template-columns: 50% 20% 20% 20%;
+                    margin-bottom: 1.3rem;
+                    @include responsive(tablet){
+                        grid-template-columns: 50% 20% 15% 20%;
+                    }
+                    @include responsive(phone){
+                        display: block;
+                    }
+                    
+                    p{
+                        padding: 1rem 0;
+                        font-weight: bold;
+                        @include responsive(phone){
+                           display: none;
+                        }
+                    }
+                    h3{
+                        padding: 1rem 0;
+                        font-size: 2.4rem;
+                    }
+                }
+                .items{
+                    display: grid;
+                    grid-template-columns: 55% 15% 20% 20%;
+                    border-top: 1px solid #ccc;
+                    padding-top: 1rem;
+                    @include responsive(tablet){
+                        grid-template-columns: 50% 20% 20% 20%;
+                    }
+                    .product_title{
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        @include responsive(tablet){
+                            flex-wrap: wrap;
+                        }
+                        img{
+                            width: 60px;
+                            height: 60px;
+                        }
+                        .product_varian{
+                            opacity: 0.6;
+                        }
+                    }
+                    p{
+                        margin-top: 1.7rem;
+                    }
+                }
+            }
+            .customer_detail{
+                border-radius: 10px;
+                width: 1024px;
+                margin:  3rem auto;
+                border: 0.5px solid #000;
+                padding:3rem;
+                @include responsive(tablet){
+                    width: 85%;
+                }
+                .header_detail{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    @include responsive(phone){
+                        flex-direction: column;
+                    }
+                    h2{
+                        margin-bottom: 1rem;
+                        padding-bottom: 2rem;
+                    }
+                    .status{
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 1.5rem;
+                        align-items: center;
+                        margin-top: -2rem;
+                        font-weight: bold;
+                        .accept{
+                            padding: 10px;
+                            border: none;
+                            border-radius: 10px;
+                            color: white;
+                            cursor: pointer;
+                            background-color: rgb(10, 128, 89);
+                        }
+                        .reject{
+                            padding: 10px;
+                            margin-right: 20px;
+                            border: none;
+                            border-radius: 10px;
+                            color: white;
+                            cursor: pointer;
+                            background-color: rgb(253, 23, 23);
+                        }
+                    }
+                }
+                .customer_info{
+                    .info{
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 2rem 0;
+                        border-top: 1px solid #ccc;
+
+                    }
+                }
+            }
+        }
+    }
+}

@@ -19,9 +19,10 @@ export default function DetailProduct() {
   const [images, setImages] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+  const api = publicRequest();
   useEffect(() => {
     const getProduct = async () => {
-      const rs = await publicRequest.get(`/product/${id}`);
+      const rs = await api.get(`/product/${id}`);
       setProduct(rs.data);
     };
     getProduct();
@@ -40,7 +41,6 @@ export default function DetailProduct() {
     setnewProduct({ ...product, [e.target.name]: e.target.value });
   };
   const { handleSubmit, register } = useForm({});
-
   const onSubmit = async (data) => {
     try {
       let { categories, size, color, title, desc, price, inStock } = data;
@@ -59,7 +59,6 @@ export default function DetailProduct() {
         const arrayCategories = categories.split(",");
         const arraySize = size.split(",");
         const arrayColor = color.split(",");
-        const token = localStorage.getItem("access_token");
         const formData = new FormData();
         if (images.length > 0) {
           for (let i = 0; i < images.length; i++) {
@@ -71,17 +70,29 @@ export default function DetailProduct() {
           for (let i = 0; i < arrayCategories.length; i++) {
             formData.append(`categories[${i}]`, arrayCategories[i]);
           }
-        } else formData.append("categories", product.categories);
+        } else {
+          for (let i = 0; i < product.categories.length; i++) {
+            formData.append(`categories[${i}]`, product.categories[i])
+          }
+        }
         if (size.length > 0) {
           for (let i = 0; i < arraySize.length; i++) {
             formData.append(`size[${i}]`, arraySize[i]);
           }
-        } else formData.append("size", product.size);
+        } else {
+          for (let i = 0; i < product.size.length; i++) {
+            formData.append(`size[${i}]`, product.size[i])
+          }
+        }
         if (color.length > 0) {
           for (let i = 0; i < arrayColor.length; i++) {
             formData.append(`color[${i}]`, arrayColor[i]);
           }
-        } else formData.append("color", product.color);
+        } else  {
+          for (let i = 0; i < product.color.length; i++) {
+            formData.append(`color[${i}]`, product.color[i])
+          }
+        }
         if (title.length > 0) {
           formData.append("title", title);
         } else formData.append("title", product.title);
@@ -95,13 +106,8 @@ export default function DetailProduct() {
           formData.append("inStock", inStock);
         } else formData.append("inStock", product.inStock);
         setLoading(true);
-        await publicRequest
-          .put(`/product/${id}`, formData, {
-            headers: {
-              token: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          })
+        await api
+          .put(`/product/${id}`, formData)
           .then((response) => {
             console.log(response.data);
             Alert.Alert("success", "Update successfully");
@@ -122,12 +128,7 @@ export default function DetailProduct() {
         if (result.value) {
           // The user clicked "Yes"
           setLoading(true);
-          const token = localStorage.getItem("access_token");
-          publicRequest.delete(`/product/${id}`, {
-            headers: {
-              token: `Bearer ${token}`,
-            },
-          })
+          api.delete(`/product/${id}`)
             .then(() => {
               setLoading(false);
               Alert.Alert("success", "Product deleted successfully");

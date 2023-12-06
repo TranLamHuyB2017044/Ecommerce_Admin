@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
 
 import { Logout } from "../../redux/userStore";
 function Header() {
@@ -23,9 +24,12 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogOut = () => {
+    window.location.reload()
     localStorage.removeItem("persist:root");
     localStorage.removeItem("access_token");
+    Cookies.remove('refreshToken');
     dispatch(Logout());
+    
     navigate("/login");
   };
   return (
@@ -63,7 +67,7 @@ function Header() {
               </div>
               <ul>
                 <li>
-                  <Link to={`/user/:${useId}`}  className={styles.my_profile}>
+                  <Link to={`/user/${useId}`}  className={styles.my_profile}>
                     <PersonOutlinedIcon /> My Profile
                   </Link>
                 </li>

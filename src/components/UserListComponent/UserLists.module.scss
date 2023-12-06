@@ -1,6 +1,13 @@
+@import '../../GlobalStyles/global.scss';
+
 .user_container{
     padding: 3rem;
     margin: 3rem;
+    @include responsive(phone){
+        margin: 0 3rem 3rem 3rem;
+        padding: 2rem;
+
+    }
     .loading_spinner {
 
         margin: auto;
@@ -15,10 +22,28 @@
             100% { transform: rotate(360deg); }
         }
     }
+    .Box{
+        @include responsive(phone){
+            height: 80vh;
+        }
+        @include responsive(tablet){
+            margin-top: 3rem;
+            height: 60vh;
+        }
+        .dataGrid{
+            @include responsive(phone){
+                height: 80vh;
+            }
+            @include responsive(tablet){
+                margin: auto;
+            }
+        }
+    }
     .userlist{
         display: flex;
         justify-content: center;
         align-items: center;
+
         .user_ava{
             margin-right: 2rem;
             width: 50px;
@@ -36,9 +61,5 @@
         color: white;
         background-color: rgb(10, 128, 89);
     }
-    .delete{
-        color: red;
-        font-size: 2.5rem;
-        cursor: pointer;
-    }
+
 }

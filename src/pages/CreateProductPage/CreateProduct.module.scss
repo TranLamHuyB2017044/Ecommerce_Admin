@@ -1,3 +1,5 @@
+@import '../../GlobalStyles/global.scss';
+
 .createProduct_container{
     max-width: 100vw;
     overflow: hidden;
@@ -6,6 +8,12 @@
         grid-template-rows: 100vh;
         grid-template-columns: 20vw 80vw;
         border: 1px solid #ccc;
+        @include responsive(phone){
+            display: block;
+        }
+        @include responsive(tablet){
+            display: block;
+        }
         .body{
             overflow-y: scroll;
             display: flex;
@@ -37,6 +45,11 @@
                     .form_content{
                         gap: 3.5rem;
                         display: flex;
+                        @include responsive(phone){
+                            flex-direction: column;
+                            gap: 0;
+
+                        }
                         .left_group{
                             .form_group{
                                 margin-top: 2rem;
@@ -44,6 +57,7 @@
                                 justify-content: space-between;
                                 align-items: center;
                                 gap: 1rem;
+                                padding: 1rem;
                                 label{
                                     font-size: 1.6rem;
                                     opacity: 0.6;
@@ -82,6 +96,8 @@
                                 justify-content: space-between;
                                 align-items: center;
                                 gap: 1rem;
+                                padding: 1rem;
+
                                 label{
                                     font-size: 1.6rem;
                                     opacity: 0.6;

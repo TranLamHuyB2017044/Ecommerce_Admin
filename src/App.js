@@ -13,13 +13,14 @@ import CreateUser from "./pages/CreateUserPage/CreateUser";
 import ProductList from "./pages/ProductPage/ProductList";
 import DetailProduct from "./pages/DetailProductPage/DetailProduct";
 import CreateProduct from "./pages/CreateProductPage/CreateProduct";
+import UserOrder from "./pages/UserOrderPage/UserOrder";
 import Login from "./pages/LoginPage/Login";
 import { useSelector } from "react-redux";
 
 function App() {
   const user = useSelector((state) => state.currentUser);
   const ProtectedRouteLogin = () => {
-    const isAdmin = user?.data.others.isAdmin
+    const isAdmin = user?.data.others?.isAdmin
     if (isAdmin) {
       return <Navigate to="/" replace />;
     }
@@ -41,6 +42,7 @@ function App() {
           <Route path="/user/create" element={<CreateUser />} />
           <Route path="/product" element={<ProductList />} />
           <Route path="/product/:id" element={<DetailProduct />} />
+          <Route path="/order/:id" element={<UserOrder />} />
           <Route path="/product/create" element={<CreateProduct />} />
         </Route>
         <Route element={<ProtectedRouteLogin />}>

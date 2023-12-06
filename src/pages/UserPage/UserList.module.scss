@@ -1,18 +1,33 @@
+@import '../../GlobalStyles/global.scss';
+
 .user_container{
     max-width: 100vw;
     overflow: hidden;
+
     .home{
         display: grid;
         grid-template-rows: 100vh;
         grid-template-columns: 20vw 80vw;
         border: 1px solid #ccc;
+        @include responsive(phone){
+            display: block;
+        }
+        @include responsive(tablet){
+            display: block;
+        }
         .body{
             overflow-y: scroll;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             background-color: hsl(220, 100%, 98%);
-
+            
+            @include responsive(tablet){
+                height: 100vh;
+            }
+            @include responsive(phone){
+                height: 100vh;
+            }
         }
     }
 }

@@ -15,8 +15,8 @@ function Home() {
         <div className={styles.body}>
           <div className={styles.content}>
             <Future/>
-            <Chart/>
             <UserInfo/>
+            <Chart/>
           </div>
           <div className={styles.footer}><Footer/></div>
         </div>

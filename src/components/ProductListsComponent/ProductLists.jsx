@@ -82,13 +82,15 @@ const columns = [
 function ProductLists() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const api = publicRequest();
   useEffect(() => {
     const productList = async () => {
-      const rs = await publicRequest.get("/product/");
+      const rs = await api.get("/product/");
       setProducts(rs.data);
       setLoading(false);
     };
     productList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -96,13 +98,14 @@ function ProductLists() {
       {loading ? (
         <div className={styles.loading_spinner}></div>
       ) : (
-        <Box sx={{ height: "550px", width: "100%" }}>
+        <Box sx={{ height: "550px", width: "100%" }} className={styles.Box}>
           <DataGrid
             rows={products}
             rowHeight={70}
             getRowId={(row) => row._id}
             columns={columns}
             style={{ fontSize: "1.5rem" }}
+            className={styles.DataGrid}
             initialState={{
               pagination: {
                 paginationModel: {

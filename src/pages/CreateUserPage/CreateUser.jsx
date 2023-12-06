@@ -16,6 +16,7 @@ export default function CreateUser() {
     password: "",
   });
   const dispatch = useDispatch();
+  const api = publicRequest();
   const [loading, setLoading] = useState(false);
   const onChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
@@ -24,7 +25,7 @@ export default function CreateUser() {
     e.preventDefault();
     setLoading(true);
     try {
-      const rs = await publicRequest.post("/auth/register", newUser);
+      const rs = await api.post("/auth/register", newUser);
       dispatch(SignUp(rs));
       setLoading(false);
       Alert.Alert("success", "CreateUser successfully");

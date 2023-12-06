@@ -6,7 +6,73 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../../request";
+import { useParams } from "react-router-dom";
+import Alert from "../../components/AlertComponent/Alert";
 export default function DetailUser() {
+  const [user, setUser] = useState({});
+  const { id } = useParams();
+  const api = publicRequest();
+  const Address = user.address;
+  const [newUser, setNewUser] = useState({
+    username: '',
+    email: '',
+    phone: '',
+    address: ''
+  });
+  const [avatar, setAvatar] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const rs = await api.get(`/user/${id}`);
+      setUser(rs.data);
+    };
+    getUserInfo();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onChange = (e) => {
+    setNewUser({...newUser,  [e.target.name]: e.target.value });
+  };
+  const handleUpdateUser = async (e) => {
+    e.preventDefault();
+    try {
+      let { username, email, phone, address } = newUser;
+      console.log(username, email, phone, address);
+      if (
+        username.length === 0 &&
+        email.length === 0 &&
+        phone.length === 0 &&
+        address.length === 0 &&
+        avatar.length === 0
+      ) {
+        Alert.Alert("error", "You must fill at least one");
+      } else {
+        const data = {
+          username: username.length > 0 ? username : user.username,
+          email: email.length > 0 ? email : user.email,
+          phone: phone.length > 0 ? phone : user.phone,
+          address: address.length > 0 ? address : user.address,
+          avatar: avatar.length > 0 ? avatar[0] : user.avatar
+        }
+        setLoading(true);
+        await api
+          .put(`user/${id}`, data)
+          .then((response) => {
+            console.log(response.data);
+            setLoading(false);
+            Alert.Alert("success", "Update successfully");
+          });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    } catch (error) {
+      Alert.Alert("error", error.response.data);
+    }
+  };
   return (
     <div className={styles.detail_container}>
       <Header />
@@ -14,68 +80,87 @@ export default function DetailUser() {
         <NavBar />
         <div className={styles.body}>
           <h1 className={styles.title_content}>Profile User</h1>
-          <div className={styles.content}>
-            <div className={styles.over_view}>
-              <div className={styles.img}>
-                <img
-                  src="https://i.pinimg.com/564x/98/90/25/98902569a74f39e4dc24636a652ba278.jpg"
-                  alt="userImg"
-                />
+          {loading ? (
+            <div className={styles.loading_spinner}></div>
+          ) : (
+            <div className={styles.content}>
+              <div className={styles.over_view}>
+                <div className={styles.img}>
+                  <img src={user.avatar} alt="userImg" />
+                </div>
+                <div className={styles.info}>
+                  <h2 className={styles.fullname}>{user.username}</h2>
+                  <h2 className={styles.address}>{Address}</h2>
+                </div>
+                <div className={styles.social}>
+                  <TwitterIcon />
+                  <InstagramIcon />
+                  <FacebookOutlinedIcon />
+                  <LinkedInIcon />
+                </div>
               </div>
-              <div className={styles.info}>
-                <h2 className={styles.fullname}>Kevin Anderson</h2>
-                <h2 className={styles.job}>Web Designer</h2>
-              </div>
-              <div className={styles.social}>
-                <TwitterIcon />
-                <InstagramIcon />
-                <FacebookOutlinedIcon />
-                <LinkedInIcon />
+              <div className={styles.edit_profile}>
+                <h2>Overview</h2>
+                <form action="#" onSubmit={handleUpdateUser}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="username">UserName</label>
+                    <input
+                      type="text"
+                      id="username"
+                      placeholder=" Traore"
+                      defaultValue={user.username}
+                      onChange={onChange}
+                      name="username"
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="text"
+                      id="email"
+                      placeholder=" Adame@gmail.com"
+                      defaultValue={user.email}
+                      onChange={onChange}
+                      name="email"
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="phone">Phone</label>
+                    <input
+                      type="phone"
+                      id="phone"
+                      placeholder=" +1 012 233 012"
+                      defaultValue={user.phone}
+                      onChange={onChange}
+                      name="phone"
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="address">Address</label>
+                    <input
+                      type="text"
+                      id="address"
+                      placeholder=" NewYork | Usa"
+                      defaultValue={user.address}
+                      onChange={onChange}
+                      name="address"
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="img">Profile Image</label>
+                    <input
+                      type="file"
+                      id="img"
+                      onChange={(e) => setAvatar(e.target.files)}
+                    />
+                  </div>
+                  <button type="submit" className={styles.save}>
+                    Save Changes
+                  </button>
+                </form>
               </div>
             </div>
-            <div className={styles.edit_profile}>
-              <h2>Overview</h2>
-              <form action="#">
-                <div className={styles.formGroup}>
-                  <label htmlFor="firstname">First Name</label>
-                  <input
-                    type="text"
-                    id="firstname"
-                    placeholder=" Traore"
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="lastname">Last Name</label>
-                  <input type="text" id="lastname" placeholder=" Adame" />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="email">Email</label>
-                  <input type="text" id="email" placeholder=" Adame@gmail.com" />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="phone">Phone</label>
-                  <input
-                    type="phone"
-                    id="phone"
-                    placeholder=" +1 012 233 012"
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="address">Address</label>
-                  <input
-                    type="text"
-                    id="address"
-                    placeholder=" NewYork | Usa"
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label htmlFor="img">Profile Image</label>
-                  <input type="file" id="img" />
-                </div>
-                <button className={styles.save}>Save Changes</button>
-              </form>
-            </div>
-          </div>
+          )}
           <div className={styles.footer}>
             <Footer />
           </div>

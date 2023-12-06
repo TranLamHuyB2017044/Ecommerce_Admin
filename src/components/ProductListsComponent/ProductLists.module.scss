@@ -1,6 +1,12 @@
+@import '../../GlobalStyles/global.scss';
+
 .Product_container{
     padding: 3rem;
     margin: 3rem;
+    @include responsive(phone){
+        margin: 2rem 1rem 1rem 1rem;
+        padding: 1rem;
+    }
     .loading_spinner {
 
         margin: auto;
@@ -15,6 +21,24 @@
             100% { transform: rotate(360deg); }
         }
     }
+    .Box{
+        @include responsive(phone){
+            height: 80vh;
+        }
+        @include responsive(tablet){
+            margin-top: 3rem;
+            height: 60vh;
+        }
+        .dataGrid{
+            @include responsive(phone){
+                height: 100vh;
+            }
+            @include responsive(tablet){
+                margin: auto;
+            }
+        }
+    }
+    
     .Productlist{
         display: flex;
         justify-content: center;

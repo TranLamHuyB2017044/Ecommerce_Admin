@@ -23,7 +23,7 @@ export default function CreateProduct() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
-
+  const api = publicRequest();
   const onChange = (e) => {
     setnewProduct({ ...newProduct, [e.target.name]: e.target.value });
   };
@@ -36,7 +36,6 @@ export default function CreateProduct() {
       const arrayCategories = categories.split(",");
       const arraySize = size.split(",");
       const arrayColor = color.split(",");
-      const token = localStorage.getItem("access_token");
       const formData = new FormData();
       for (let i = 0; i < images.length; i++) {
         formData.append("img", images[i]);
@@ -55,13 +54,8 @@ export default function CreateProduct() {
       formData.append("desc", desc);
       formData.append("price", price);
       formData.append("inStock", inStock);
-      await publicRequest
-        .post("/product/", formData, {
-          headers: {
-            token: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        })
+      await api
+        .post("/product/", formData)
         .then((response) => {
           console.log(response.data);
           setLoading(false);

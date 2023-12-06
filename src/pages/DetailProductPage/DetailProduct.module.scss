@@ -1,3 +1,5 @@
+@import '../../GlobalStyles/global.scss';
+
 .detail_container{
     max-width: 100vw;
     overflow: hidden;
@@ -6,6 +8,12 @@
         grid-template-rows: 100vh;
         grid-template-columns: 20vw 80vw;
         border: 1px solid #ccc;
+        @include responsive(phone){
+            display: block;
+        }
+        @include responsive(tablet){
+            display: block;
+        }
         .body{
             overflow-y: scroll;
             display: flex;
@@ -67,6 +75,12 @@
                     display: flex;
                     gap: 2rem;
                     padding: 3rem;
+                    @include responsive(phone){
+                        flex-direction: column;
+                    }   
+                    @include responsive(tablet){
+                        flex-direction: column;
+                    }   
                     .chart_product{
                         box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
                         -webkit-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
@@ -80,6 +94,7 @@
                         -webkit-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
                         -moz-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
                         padding: 3rem;
+ 
                         table{
                             font-size: 1.7rem;
                             img{
@@ -90,6 +105,9 @@
                             }
                             th,td{
                                 padding: 0 3rem;
+                                @include responsive(phone){
+                                    padding: 0;
+                                } 
                             }
 
                         }
@@ -125,6 +143,12 @@
                             display: flex;
                             gap: 2rem;
                             justify-content: space-around;
+                            @include responsive(phone){
+                                flex-direction: column;
+                            } 
+                            @include responsive(tablet){
+                                flex-direction: column;
+                            } 
                             .form_group_left{
                                 .form_group{
                                     margin-top: 1.4rem;

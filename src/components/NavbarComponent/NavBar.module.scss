@@ -1,11 +1,25 @@
+@import '../../GlobalStyles/global.scss';
+
 .NavBar_container{
     border: 1px solid #ccc;
     overflow-y: auto;
+    @include responsive(phone){
+        display: none;
+    }
+    @include responsive(tablet){
+        display: none;
+    }
     .NavBar_top{
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
         padding: 1rem 3rem 3rem 3rem;
+        @include responsive(phone){
+            display: none;
+        }
+        @include responsive(tablet){
+            display: none;
+        }
         .NavBar_item{
             display: flex;
             gap: 1rem;
@@ -16,7 +30,7 @@
             opacity: 0.8;
             .item_title{
                 text-decoration: none;
-                font-size: 1.7rem;
+                font-size: 2rem;
                 color: black;
             }
             
@@ -33,31 +47,5 @@
         //     text-decoration: none;
         // }
     }
-    .NavBar_bottom{
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 0 3rem 3rem 3rem;
-        .NavBar_item{
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            cursor: pointer;
-            opacity: 0.8;
-            margin-top: 1rem;
-            &:hover{
-                opacity: 1;
-            }
-            .item_title{
-                text-decoration: none;
-                font-size: 1.7rem;
-                color: black;
-            }
-            svg{
-                font-size: 2rem;
-            }
-
-
-        }
-    }
+   
 }

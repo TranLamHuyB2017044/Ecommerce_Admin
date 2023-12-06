@@ -1,8 +1,21 @@
+@import '../../GlobalStyles/global.scss';
+
+
 .Dashboard_container{
     .Feature_container{
         display: flex;
         justify-content: space-around;
         margin-top: 3rem;
+        @include responsive(phone){
+            flex-direction:column;
+            padding: 3rem;
+            margin-top: 0;
+        }
+        @include responsive(tablet){
+            flex-direction:column;
+            padding: 3rem;
+            margin-top: 0;
+        }
         .Feature_items{
             box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
             -webkit-box-shadow: 1px 1px 5px 2px rgba(150,143,143,0.68);
