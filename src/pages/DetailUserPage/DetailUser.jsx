@@ -50,24 +50,22 @@ export default function DetailUser() {
       ) {
         Alert.Alert("error", "You must fill at least one");
       } else {
-        const data = {
-          username: username.length > 0 ? username : user.username,
-          email: email.length > 0 ? email : user.email,
-          phone: phone.length > 0 ? phone : user.phone,
-          address: address.length > 0 ? address : user.address,
-          avatar: avatar.length > 0 ? avatar[0] : user.avatar
-        }
+        const formData = new FormData();
+        formData.append("username", username);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("address", address);
+        formData.append("avatar", avatar[0]); // Assuming avatar is a File object
+
+        // Add additional fields as needed
+
         setLoading(true);
-        await api
-          .put(`user/${id}`, data)
-          .then((response) => {
-            console.log(response.data);
-            setLoading(false);
-            Alert.Alert("success", "Update successfully");
-          });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        await api.put(`user/${id}`, formData).then((response) => {
+          console.log(response.data);
+          setUser(response.data);
+          setLoading(false);
+          Alert.Alert("success", "Update successfully");
+        });
       }
     } catch (error) {
       Alert.Alert("error", error.response.data);
