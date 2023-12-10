@@ -17,18 +17,17 @@ import Cookies from "js-cookie";
 import { Logout } from "../../redux/userStore";
 function Header() {
   const [showMenu, setShowMenu] = useState(false);
-  const user = useSelector((state) => state.currentUser.data.others);
+  const user = useSelector((state) => state.currentUser?.data?.others);
   const username = user.username;
   const useId = user._id;
-  const avatar = user.avatar;
+  const avatar = user.avatar
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogOut = () => {
-    window.location.reload()
+    dispatch(Logout());
     localStorage.removeItem("persist:root");
     localStorage.removeItem("access_token");
     Cookies.remove('refreshToken');
-    dispatch(Logout());
     
     navigate("/login");
   };

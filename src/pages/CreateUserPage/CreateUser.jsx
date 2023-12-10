@@ -7,6 +7,8 @@ import { publicRequest } from "../../request";
 import { useDispatch } from "react-redux";
 import { SignUp } from "../../redux/userStore";
 import Alert from "../../components/AlertComponent/Alert";
+import { useNavigate } from "react-router-dom";
+
 export default function CreateUser() {
   const [newUser, setNewUser] = useState({
     username: "",
@@ -18,6 +20,7 @@ export default function CreateUser() {
   const dispatch = useDispatch();
   const api = publicRequest();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
   const onChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
@@ -29,8 +32,10 @@ export default function CreateUser() {
       dispatch(SignUp(rs));
       setLoading(false);
       Alert.Alert("success", "CreateUser successfully");
+      navigate('/user')
     } catch (error) {
       Alert.Alert("error", error.response.data);
+      setLoading(false);
     }
   };
   const enterSignup = async (e) => {
@@ -94,7 +99,7 @@ export default function CreateUser() {
                     <div className={styles.formGroup}>
                       <p htmlFor="phone">Phone</p>
                       <input
-                        type="tel"
+                        type="number"
                         id="phone"
                         placeholder=" +1 012 233 012"
                         onChange={onChange}

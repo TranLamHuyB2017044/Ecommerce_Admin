@@ -75,7 +75,7 @@ function UserInfo() {
                 <p>{user.email}</p>
               </div>
             </div>
-          ))}
+          )).reverse()}
         </div>
       </div>
       <div className={styles.latest_trans}>
@@ -106,7 +106,7 @@ function UserInfo() {
                       (total, item) =>
                         total + item.productId.price * item.quantity,
                       0
-                    )}
+                    ).toFixed(2)}
                     $
                   </td>
 
