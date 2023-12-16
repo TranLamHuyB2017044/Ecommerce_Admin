@@ -83,7 +83,7 @@ export default function UserOrder() {
                 </div>
                 <p>x {item.quantity}</p>
                 <p>${item.productId.price}</p>
-                <p>${item.productId.price * item.quantity}</p>
+                <p>${(item.productId.price * item.quantity).toFixed(2)}</p>
               </div>
             ))}
           </div>
@@ -174,7 +174,7 @@ export default function UserOrder() {
                     (total, item) =>
                       total + item.productId.price * item.quantity,
                     0
-                  )}
+                  ).toFixed(2)}
                   $
                 </p>
               </div>
